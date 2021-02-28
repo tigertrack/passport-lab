@@ -10,8 +10,8 @@ const authenticate = async (username, password, done) => {
 
         return done(null, user)
     } catch (error) {
-        console.log(error.message)   
-        return done(null, false, {message : error.message})
+        console.log(error)   
+        return done(null, false, {message : error})
     }
 }
 
