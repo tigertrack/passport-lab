@@ -22,5 +22,5 @@ passport.serializeUser(
 )
 
 passport.deserializeUser(
-    async (id, none) => await User.findByPk(id)
+    async (id, done) => done(null, await User.findByPk(id))
 )

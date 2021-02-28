@@ -7,6 +7,7 @@ const session = require('express-session')
 const passport = require('passport')
 const localAuth = require('./auth/local-strategy')
 
+
 const app = express()
 const {PORT = 8000} = process.env 
 
@@ -19,8 +20,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
-
 app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(routes)
 
