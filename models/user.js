@@ -5,6 +5,8 @@ const {
 
 const bcrypt = require('bcrypt');
 const e = require('express');
+const jwt = require('jsonwebtoken')
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -29,6 +31,19 @@ module.exports = (sequelize, DataTypes) => {
 
     validatePassword = (password) => bcrypt.compare(password, this.password)
 
+    generateToken = () => {
+      const payload = {
+        id: this.id,
+        username: this.username
+      }
+
+      const secret = 'this is my jwt secret'
+
+      const token = jwt.sign(payload, secret)
+
+      return token
+    }
+
     static authenticate = async({username, password}) => {
       try {
         const user = await this.findOne({where : {username}})
@@ -40,6 +55,7 @@ module.exports = (sequelize, DataTypes) => {
         return Promise.reject(error)
       }
     }
+    
 
     
   };
