@@ -1,5 +1,6 @@
 const api = require('express').Router()
 const { User } = require('../models')
+const authenticate = require('../middleware/authenticate')
 
 const format = user => {
     const {id, username} = user
@@ -19,7 +20,7 @@ api.post('/auth/login', async (req, res) => {
    }
 })
 
-api.get('/users', async (req, res) => {
+api.get('/users', authenticate.hasToken, async (req, res) => {
     const users = await User.findAll()
     res.json(users)
 })

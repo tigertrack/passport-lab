@@ -2,8 +2,6 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const { User } = require('../models')
 
-console.log('local-config loaded')
-
 const authenticate = async (username, password, done) => {
     try {
         const user = await User.authenticate({username, password})
